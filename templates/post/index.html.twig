@@ -6,12 +6,8 @@
     <div class="container">
         <header>
             <div class="logo">
-                <h1>Mon Blog</h1>
+                <h1>Pourquoi les animaux ?</h1>
             </div>
-            <nav>
-                <a href="{{ path('post_index') }}" class="nav-item">Accueil</a>
-                <a href="{{ path('post_create') }}" class="nav-item">Créer un post</a>
-            </nav>
         </header>
 
         <main>
@@ -44,147 +40,168 @@
     </div>
 {% endblock %}
 
-
 {% block styles %}
     <style>
-        /* Reset de base */
-        body, h1, h2, p, ul, li {
+        /* Reset global */
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Conteneur principal */
-        .container {
+        /* Body and container */
+        body {
             font-family: 'Arial', sans-serif;
-            background-color: #f5f8fa;
-            color: #1da1f2;
+            line-height: 1.6;
+            background-color: #f3f4f6;
+            color: #333;
             padding: 20px;
+        }
+
+        .container {
             max-width: 800px;
             margin: 0 auto;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
 
         /* Header */
         header {
+            background: #1da1f2;
+            color: #fff;
+            padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #e1e8ed;
         }
 
         .logo h1 {
-            font-size: 1.8em;
-            color: #1da1f2;
+            font-size: 1.8rem;
             font-weight: bold;
+            margin: 0;
         }
 
         nav a {
+            color: #fff;
             text-decoration: none;
-            color: #1da1f2;
-            padding: 10px 15px;
-            border-radius: 5px;
             font-weight: bold;
+            margin-left: 15px;
+            transition: background 0.3s, color 0.3s;
+            padding: 8px 12px;
+            border-radius: 4px;
         }
 
         nav a:hover {
-            background-color: #e1e8ed;
+            background: #fff;
+            color: #1da1f2;
         }
 
-        /* Liste des posts */
+        /* Main content */
+        main {
+            padding: 20px;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #1da1f2;
+            padding-bottom: 10px;
+            color: #1da1f2;
+        }
+
         .post-list {
             list-style: none;
-            padding: 0;
         }
 
         .post-item {
-            background-color: #ffffff;
-            border-radius: 10px;
+            background: #f9f9f9;
+            border-radius: 8px;
             margin-bottom: 20px;
             padding: 15px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
         .post-item:hover {
-            transform: translateY(-5px);
+            transform: translateY(-4px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
 
         .post-header {
             display: flex;
             justify-content: space-between;
-            font-size: 0.9em;
-            color: #657786;
-        }
-
-        .post-author {
-            font-weight: bold;
-        }
-
-        .post-date {
-            font-style: italic;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: #555;
         }
 
         .post-content {
-            font-size: 1.1em;
-            margin-top: 10px;
-            line-height: 1.5;
+            font-size: 1rem;
+            margin: 10px 0;
+            line-height: 1.6;
         }
 
         .post-footer {
             display: flex;
             justify-content: space-between;
-            margin-top: 15px;
-            font-size: 0.9em;
+            align-items: center;
         }
 
         .likes {
+            font-weight: bold;
             color: #1da1f2;
         }
 
         .like-button {
-            background-color: #1da1f2;
-            color: white;
+            background: #1da1f2;
+            color: #fff;
             border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
+            border-radius: 4px;
+            padding: 6px 12px;
             cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s;
         }
 
         .like-button:hover {
-            background-color: #1991c0;
+            background: #166aa4;
         }
 
         /* Footer */
         footer {
+            background: #1da1f2;
+            color: #fff;
             text-align: center;
-            font-size: 0.9em;
-            color: #657786;
-            margin-top: 30px;
+            padding: 10px;
+            font-size: 0.85rem;
         }
 
-        /* Responsive */
+        /* Responsive design */
         @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-
             header {
                 flex-direction: column;
                 align-items: flex-start;
-                padding-bottom: 10px;
             }
 
-            .post-item {
-                padding: 10px;
+            nav a {
+                margin-left: 0;
+                margin-bottom: 10px;
             }
 
             .post-header {
                 flex-direction: column;
                 align-items: flex-start;
+            }
+
+            .post-footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .like-button {
+                margin-top: 10px;
             }
         }
     </style>
