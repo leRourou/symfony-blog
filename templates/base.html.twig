@@ -3,17 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.2/dist/tailwind.min.css" rel="stylesheet">
     <title>{% block title %}My Application{% endblock %}</title>
     {% block styles %}{% endblock %}  <!-- Bloc pour les styles spécifiques -->
 </head>
 <body>
-    <header>
-        <h1>Mon blog</h1>
-        <nav>
-            <a href="{{ path('post_index') }}">Accueil</a>
-            <a href="{{ path('post_create') }}">Créer un post</a>
-        </nav>
-    </header>
 
     <main>
         {% block body %}{% endblock %}

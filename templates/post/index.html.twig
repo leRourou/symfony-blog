@@ -3,189 +3,45 @@
 {% block title %}Liste des Posts{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <header>
-            <div class="logo">
-                <h1>Mon Blog</h1>
+    <div class="min-h-screen bg-gray-100">
+        <header class="bg-blue-600 text-white shadow">
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="logo">
+                    <h1 class="text-2xl font-bold">Mon Blog</h1>
+                </div>
+                <nav class="space-x-4">
+                    <a href="{{ path('post_index') }}" class="nav-item text-lg hover:text-blue-300">Accueil</a>
+                    <a href="{{ path('post_create') }}" class="nav-item text-lg hover:text-blue-300">Créer un post</a>
+                </nav>
             </div>
-            <nav>
-                <a href="{{ path('post_index') }}" class="nav-item">Accueil</a>
-                <a href="{{ path('post_create') }}" class="nav-item">Créer un post</a>
-            </nav>
         </header>
 
-        <main>
-            <h2>Liste des Posts</h2>
+        <main class="container mx-auto px-4 py-8">
+            <h2 class="text-3xl font-semibold mb-6">Liste des Posts</h2>
 
             {% if posts is not empty %}
-                <ul class="post-list">
+                <ul class="space-y-6">
                     {% for post in posts %}
-                        <li class="post-item">
-                            <div class="post-header">
-                                <span class="post-author">Auteur: {{ post.user.name }}</span>
-                                <span class="post-date">{{ post.createdAt|date('d/m/Y H:i') }}</span>
+                        <li class="bg-white shadow-md rounded-lg p-6">
+                            <div class="post-header flex justify-between items-center mb-4">
+                                <span class="text-gray-600 text-sm">Auteur: {{ post.user.name }}</span>
+                                <span class="text-gray-500 text-sm">{{ post.createdAt|date('d/m/Y H:i') }}</span>
                             </div>
-                            <p class="post-content">{{ post.content }}</p>
-                            <div class="post-footer">
-                                <span class="likes">{{ post.likes|length }} likes</span>
-                                <button class="like-button">J'aime</button>
+                            <p class="text-gray-800 mb-4">{{ post.content }}</p>
+                            <div class="post-footer flex items-center justify-between">
+                                <span class="text-gray-600 text-sm">{{ post.likes|length }} likes</span>
+                                <button class="like-button bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">J'aime</button>
                             </div>
                         </li>
                     {% endfor %}
                 </ul>
             {% else %}
-                <p>Aucun post disponible.</p>
+                <p class="text-gray-500 text-center">Aucun post disponible.</p>
             {% endif %}
         </main>
 
-        <footer>
+        <footer class="bg-gray-800 text-white text-center py-4">
             <p>&copy; 2024 Mon Blog</p>
         </footer>
     </div>
-{% endblock %}
-
-
-{% block styles %}
-    <style>
-        /* Reset de base */
-        body, h1, h2, p, ul, li {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* Conteneur principal */
-        .container {
-            font-family: 'Arial', sans-serif;
-            background-color: #f5f8fa;
-            color: #1da1f2;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Header */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #e1e8ed;
-        }
-
-        .logo h1 {
-            font-size: 1.8em;
-            color: #1da1f2;
-            font-weight: bold;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #1da1f2;
-            padding: 10px 15px;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-
-        nav a:hover {
-            background-color: #e1e8ed;
-        }
-
-        /* Liste des posts */
-        .post-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .post-item {
-            background-color: #ffffff;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            padding: 15px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .post-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        .post-header {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9em;
-            color: #657786;
-        }
-
-        .post-author {
-            font-weight: bold;
-        }
-
-        .post-date {
-            font-style: italic;
-        }
-
-        .post-content {
-            font-size: 1.1em;
-            margin-top: 10px;
-            line-height: 1.5;
-        }
-
-        .post-footer {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
-            font-size: 0.9em;
-        }
-
-        .likes {
-            color: #1da1f2;
-        }
-
-        .like-button {
-            background-color: #1da1f2;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-
-        .like-button:hover {
-            background-color: #1991c0;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            font-size: 0.9em;
-            color: #657786;
-            margin-top: 30px;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-
-            header {
-                flex-direction: column;
-                align-items: flex-start;
-                padding-bottom: 10px;
-            }
-
-            .post-item {
-                padding: 10px;
-            }
-
-            .post-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-        }
-    </style>
 {% endblock %}
