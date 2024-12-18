@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
 class PostController extends AbstractController
 {
@@ -17,7 +19,10 @@ class PostController extends AbstractController
     {
         $posts = $postRepository->findAll();
 
-        return $this->json($posts);
+        // Rendre la vue Twig avec les posts
+        return $this->render('post/index.html.twig', [
+            'posts' => $posts,
+        ]);
     }
 
     #[Route('/posts', name: 'post_create', methods: ['POST'])]
@@ -33,13 +38,21 @@ class PostController extends AbstractController
         $entityManager->persist($post);
         $entityManager->flush();
 
-        return $this->json($post, Response::HTTP_CREATED);
+        // Sérialiser le post avec le groupe 'post:read'
+        return $this->json($post, Response::HTTP_CREATED, [], [
+            'groups' => ['post:read']
+        ]);
     }
 
     #[Route('/posts/{id}', name: 'post_show', methods: ['GET'])]
-    public function show(Post $post): Response
+    public function show(Post $post, SerializerInterface $serializer): Response
     {
-        return $this->json($post);
+        // Sérialiser le post avec le groupe 'post:read'
+        $json = $serializer->serialize($post, 'json', [
+            AbstractNormalizer::GROUPS => ['post:read'],
+        ]);
+
+        return new Response($json, 200, ['Content-Type' => 'application/json']);
     }
 
     #[Route('/posts/{id}', name: 'post_update', methods: ['PUT'])]
@@ -57,7 +70,10 @@ class PostController extends AbstractController
 
         $entityManager->flush();
 
-        return $this->json($post);
+        // Sérialiser le post avec le groupe 'post:read'
+        return $this->json($post, Response::HTTP_OK, [], [
+            'groups' => ['post:read']
+        ]);
     }
 
     #[Route('/posts/{id}', name: 'post_delete', methods: ['DELETE'])]
