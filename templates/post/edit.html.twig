@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Modifier le post</h1>
+    <form method="post">
+        <textarea name="content" required>{{ post.content }}</textarea>
+        <button type="submit">Modifier</button>
+    </form>
+{% endblock %}
