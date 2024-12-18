@@ -7,6 +7,7 @@ use Doctrine\Persistence\ObjectManager;
 use App\Entity\Post;
 use App\Entity\User;
 use App\Entity\Comment;
+use App\Entity\Like;
 use DateTimeImmutable;
 
 class AppFixtures extends Fixture
@@ -32,7 +33,6 @@ class AppFixtures extends Fixture
         for ($i = 0; $i < 50; $i++) {
             $post = new Post();
             $post
-                ->setLikeCount($faker->numberBetween(0, 100))
                 ->setCreatedAt(DateTimeImmutable::createFromMutable($faker->dateTimeThisYear()))
                 ->setContent($faker->realTextBetween(250, 500))
                 ->setUser($faker->randomElement($users));
@@ -50,6 +50,17 @@ class AppFixtures extends Fixture
                 ->setPost($faker->randomElement($posts));
             $manager->persist($comment);
         }
+
+        # Fake likes 
+        for ($i = 0; $i < 100; $i++) {
+            $like = new Like();
+            $like
+                ->setCreatedAt(DateTimeImmutable::createFromMutable($faker->dateTimeThisYear()))
+                ->setPost($faker->randomElement($posts))
+                ->setUser($faker->randomElement($users));
+            $manager->persist($like);
+        }
+
         $manager->flush();
     }
 }

@@ -33,7 +33,6 @@ class PostController extends AbstractController
         $post = new Post();
         $post->setContent($data['content'] ?? '');
         $post->setCreatedAt(new \DateTimeImmutable());
-        $post->setLikeCounterStrikeOffensiveSourceGlobalELitak47(0);
 
         $entityManager->persist($post);
         $entityManager->flush();
@@ -62,10 +61,6 @@ class PostController extends AbstractController
 
         if (isset($data['content'])) {
             $post->setContent($data['content']);
-        }
-
-        if (isset($data['likeCounter'])) {
-            $post->setLikeCounterStrikeOffensiveSourceGlobalELitak47($data['likeCounter']);
         }
 
         $entityManager->flush();
