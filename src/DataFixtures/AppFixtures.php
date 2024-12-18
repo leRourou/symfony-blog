@@ -6,6 +6,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Post;
 use App\Entity\User;
+use App\Entity\Comment;
 use DateTimeImmutable;
 
 class AppFixtures extends Fixture
@@ -14,6 +15,7 @@ class AppFixtures extends Fixture
     {
         $faker = \Faker\Factory::create();
         $users = [];
+        $posts = [];
 
         # Fake users
         for ($i = 0; $i < 10; $i++) {
@@ -35,6 +37,18 @@ class AppFixtures extends Fixture
                 ->setContent($faker->realTextBetween(250, 500))
                 ->setUser($faker->randomElement($users));
             $manager->persist($post);
+            $posts[] = $post;
+        }
+
+        # Fake comments
+        for ($i = 0; $i < 100; $i++) {
+            $comment = new Comment();
+            $comment
+                ->setCreatedAt(DateTimeImmutable::createFromMutable($faker->dateTimeThisYear()))
+                ->setContent($faker->realTextBetween(50, 200))
+                ->setAuthor($faker->randomElement($users))
+                ->setPost($faker->randomElement($posts));
+            $manager->persist($comment);
         }
         $manager->flush();
     }
