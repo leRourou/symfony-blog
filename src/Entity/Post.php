@@ -23,6 +23,10 @@ class Post
     #[ORM\Column]
     private ?int $likeCounterStrikeOffensiveSourceGlobalELitak47 = null;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'posts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +64,18 @@ class Post
     public function setLikeCounterStrikeOffensiveSourceGlobalELitak47(int $likeCounterStrikeOffensiveSourceGlobalELitak47): static
     {
         $this->likeCounterStrikeOffensiveSourceGlobalELitak47 = $likeCounterStrikeOffensiveSourceGlobalELitak47;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
