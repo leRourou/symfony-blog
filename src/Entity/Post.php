@@ -21,7 +21,7 @@ class Post
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\Column]
-    private ?int $likeCounterStrikeOffensiveSourceGlobalELitak47 = null;
+    private ?int $likeCount = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
@@ -56,14 +56,14 @@ class Post
         return $this;
     }
 
-    public function getLikeCounterStrikeOffensiveSourceGlobalELitak47(): ?int
+    public function getLikeCount(): ?int
     {
-        return $this->likeCounterStrikeOffensiveSourceGlobalELitak47;
+        return $this->likeCount;
     }
 
-    public function setLikeCounterStrikeOffensiveSourceGlobalELitak47(int $likeCounterStrikeOffensiveSourceGlobalELitak47): static
+    public function setLikeCount(int $likeCount): static
     {
-        $this->likeCounterStrikeOffensiveSourceGlobalELitak47 = $likeCounterStrikeOffensiveSourceGlobalELitak47;
+        $this->likeCount = $likeCount;
 
         return $this;
     }
