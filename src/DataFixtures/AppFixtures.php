@@ -24,6 +24,7 @@ class AppFixtures extends Fixture
             $user
                 ->setFirstName($faker->firstName())
                 ->setName($faker->lastName())
+                ->setImage($faker->imageUrl(640, 480, 'people'))
                 ->setPseudo($faker->userName());
             $manager->persist(object: $user);
             $users[] = $user;
